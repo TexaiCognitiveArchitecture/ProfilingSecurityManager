@@ -1,0 +1,26 @@
+// Texai permissions
+grant codeBase "file:/home/reed/.m2/repository/junit/junit/4.7/junit-4.7.jar" {
+  permission  java.lang.RuntimePermission "setIO", "";
+};
+
+grant codeBase "file:/home/reed/.m2/repository/org/apache/maven/surefire/surefire-api/2.4.3/surefire-api-2.4.3.jar" {
+  permission  java.io.FilePermission "/home/reed/svn/ProfilingSecurityManager/target/surefire-reports", "read";
+  permission  java.io.FilePermission "/home/reed/svn/ProfilingSecurityManager/target/surefire-reports/TEST-org.texai.security.ProfilingSecurityManagerTest.xml", "write";
+  permission  java.lang.RuntimePermission "setIO", "";
+  permission  java.util.PropertyPermission "*", "read,write";
+};
+
+grant codeBase "file:/home/reed/.m2/repository/org/apache/maven/surefire/surefire-booter/2.4.3/surefire-booter-2.4.3.jar" {
+  permission  java.io.FilePermission "/home/reed/svn/ProfilingSecurityManager/target/surefire-reports", "read";
+  permission  java.io.FilePermission "/home/reed/svn/ProfilingSecurityManager/target/surefire-reports/TEST-org.texai.security.ProfilingSecurityManagerTest.xml", "write";
+  permission  java.io.FilePermission "/tmp/-", "write";
+  permission  java.lang.RuntimePermission "exitVM.0", "";
+  permission  java.lang.RuntimePermission "setContextClassLoader", "";
+  permission  java.lang.RuntimePermission "setIO", "";
+  permission  java.util.PropertyPermission "*", "read,write";
+};
+
+grant codeBase "file:/home/reed/.m2/repository/org/apache/maven/surefire/surefire-junit4/2.4.3/surefire-junit4-2.4.3.jar" {
+  permission  java.lang.RuntimePermission "setIO", "";
+};
+
