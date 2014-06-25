@@ -45,7 +45,7 @@ public final class PolicyFileGenerator {
   /** policy file buffered writer */
   private BufferedWriter bufferedWriter;
   /** the code base dictionary, code base --> grant rule set */
-  private Map<String, Set<String>> codeBaseDictionary = new HashMap<String, Set<String>>();
+  private final Map<String, Set<String>> codeBaseDictionary = new HashMap<>();
 
   /** Constructs a new PolicyFileGenerator instance. */
   public PolicyFileGenerator() {
@@ -84,7 +84,7 @@ public final class PolicyFileGenerator {
           }
           Set<String> permissions = codeBaseDictionary.get(codeBase);
           if (permissions == null) {
-            permissions = new HashSet<String>();
+            permissions = new HashSet<>();
             codeBaseDictionary.put(codeBase, permissions);
           }
           permissions.add(wildCardPermission);
@@ -98,14 +98,14 @@ public final class PolicyFileGenerator {
       bufferedWriter.write("// Texai permissions");
       bufferedWriter.newLine();
       String outputLine;
-      final List<String> sortedCodeBases = new ArrayList<String>(codeBaseDictionary.keySet());
+      final List<String> sortedCodeBases = new ArrayList<>(codeBaseDictionary.keySet());
       Collections.sort(sortedCodeBases);
       for (final String sortedCodeBase : sortedCodeBases) {
         outputLine = "grant codeBase \"" + sortedCodeBase + "\" {";
         System.out.println(outputLine);
         bufferedWriter.write(outputLine);
         bufferedWriter.newLine();
-        final List<String> sortedPermissions = new ArrayList<String>(codeBaseDictionary.get(sortedCodeBase));
+        final List<String> sortedPermissions = new ArrayList<>(codeBaseDictionary.get(sortedCodeBase));
         Collections.sort(sortedPermissions);
         for (final String sortedPermission : sortedPermissions) {
           outputLine = "  " + sortedPermission;
@@ -126,7 +126,7 @@ public final class PolicyFileGenerator {
   }
 
   /** Returns the given permission string after substituting wild card expressions for unique file names.
-   * 
+   *
    * @param permission the given permission string
    * @return the given permission string after substituting wild card expressions for unique file names
    */

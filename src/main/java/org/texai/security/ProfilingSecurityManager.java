@@ -71,7 +71,7 @@ public final class ProfilingSecurityManager extends SecurityManager {
   /** the rule output file */
   BufferedWriter bufferedWriter;
   /** the cached rules */
-  final private ArrayList<String> cachedRules = new ArrayList<String>();
+  final private ArrayList<String> cachedRules = new ArrayList<>();
 
   /** Constructs a new ProfilingSecurityManager instance. */
   public ProfilingSecurityManager() {
@@ -99,6 +99,7 @@ public final class ProfilingSecurityManager extends SecurityManager {
     //Preconditions
     assert permission != null : "permission must not be null";
 
+    @SuppressWarnings({"ThrowableInstanceNotThrown"})
     final Throwable throwable = new Throwable("Profiler stack probe");
     final StackTraceElement[] stack = throwable.getStackTrace();
     // Avoid recursion owing to actions in this class itself inducing callbacks
@@ -153,6 +154,7 @@ public final class ProfilingSecurityManager extends SecurityManager {
    *
    * @param permission the permission
    * @param accessControlContext the access control context
+   * @throws java.io.IOException when an I/O error occurs
    */
   private void buildRules(final Permission permission, final AccessControlContext accessControlContext) throws IOException {
     //Preconditions
@@ -314,13 +316,19 @@ public final class ProfilingSecurityManager extends SecurityManager {
   }
 
   /** Closes the output file.  Called by the garbage collector on an object when garbage collection determines
-   * that there are no more references to the object. */
+   * that there are no more references to the object.
+   *
+   * @throws java.lang.Throwable when an error occurs
+   */
   @Override
-  public void finalize() {
+  @SuppressWarnings("FinalizeDeclaration")
+   public void finalize() throws Throwable {
     try {
       bufferedWriter.close();
     } catch (IOException ex) {
       ex.printStackTrace();
+    } finally {
+      super.finalize();
     }
   }
 }
