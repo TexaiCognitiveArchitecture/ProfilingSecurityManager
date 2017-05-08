@@ -67,15 +67,10 @@
   </dependencies>
 
   <distributionManagement>
-    <site>
-      <id>bluehost</id>
-      <url>scp://texai.org/home/texaiorg/public_html/maven/</url>
-    </site>
-
     <repository>
-      <id>releases</id>
-      <name>releases</name>
-      <url>http://localhost:8081/nexus/content/repositories/releases</url>
+      <id>nexus</id>
+      <url>http://162.243.117.82:8081/repository/maven-releases/</url>
     </repository>
   </distributionManagement>
+
 </project>
